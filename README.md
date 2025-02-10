@@ -1,2 +1,2 @@
 # google-sign-in-automation
-This is a demo project of Google signin autoamtion in playwright using typescript. It shows a excellent way to handle 2FA authentication while creating automation script
+This is a demo project of ui automation using playwright and typecript. The test cases are predefiend and we tried to automate this with best possible ways to create a test automation solution. We have used Page Object Model to setup the framework for scalablity. 
