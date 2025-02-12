@@ -1,4 +1,5 @@
 import { Locator, Page } from '@playwright/test';
+import { faker } from '@faker-js/faker';
 
 export class SignupAndLoginPage {
     private readonly page: Page;
@@ -28,15 +29,20 @@ export class SignupAndLoginPage {
     }
 
     // Page actions
-    async signup(username: string, email: string): Promise<void> {
-        await this.signupUsernameField.fill(username);
-        await this.signupEmailField.fill(email);
+    async fillSignupInfo(): Promise<void> {
+        await this.signupUsernameField.fill(faker.internet.username());
+        await this.signupEmailField.fill(faker.internet.email());
+    }
+    async clickOnSignup(): Promise<void> {
         await this.signupBtn.click();
     }
 
-    async login(email: string, password: string): Promise<void> {
-        await this.loginEmailAddressField.fill(email);
-        await this.loginPasswordField.fill(password);
+    async fillLoginInfo(): Promise<void> {
+        await this.loginEmailAddressField.fill(faker.internet.email());
+        await this.loginPasswordField.fill(faker.internet.password());
+
+    }
+    async clickOnLogin(): Promise<void> {
         await this.loginBtn.click();
     }
 
