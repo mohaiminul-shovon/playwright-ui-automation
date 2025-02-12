@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { SignupAndLoginPage } from '../pages/signupAndLogin.page';
+import { SignupInfoPage } from '../pages/signupInfo.page';
+import { AccountCreatedPage } from '../pages/accountCreated.page';
 
 test("Register User", async({page}) => {
   await page.goto('https://automationexercise.com/');
@@ -40,12 +42,21 @@ test("Register User", async({page}) => {
 })
 test('Registering User', async ({page}) => {
   const signupAndLoginPage = new SignupAndLoginPage(page);
+  const signupInfo = new SignupInfoPage(page);
+  const accountCreationLandingPage = new AccountCreatedPage(page);
   await page.goto('https://automationexercise.com/');
   await expect(page).toHaveTitle('Automation Exercise');
   await page.getByRole('link', { name: 'Signup / Login' }).click();
   await signupAndLoginPage.navigateToSignupPage();
   const signupText = await signupAndLoginPage.getSignupText();
   await expect(signupText).toHaveText('New User Signup!');
-  
-  
+  await signupAndLoginPage.fillSignupInfo();
+  await signupAndLoginPage.clickOnSignup();
+  await signupInfo.fillAccountInfo();
+  await signupInfo.fillAddressInfo();
+  await signupInfo.submitSignupForm();
+  const accountCreationSuccessText = await accountCreationLandingPage.getAccountCreatedText();
+  await expect(accountCreationSuccessText).toHaveText('Account Created!');
+  await accountCreationLandingPage.clickContinueLink();
+
 })
