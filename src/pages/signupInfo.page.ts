@@ -1,5 +1,6 @@
 import {Page, Locator} from "@playwright/test";
 import {faker} from "@faker-js/faker";
+import { Data } from "../data/fakeData";
 interface Dob{
     day: Locator;
     month: Locator;
@@ -14,7 +15,6 @@ export class SignupInfoPage{
     private readonly infoPageHeader: Locator;
     private readonly titleRadioBtn: TitleRadioBtn;
     private readonly nameField: Locator;
-    private readonly emailField: Locator;
     private readonly passwordField: Locator;
     private readonly dobField: Dob;
     private readonly newsletterCheckbox: Locator;
@@ -38,7 +38,6 @@ export class SignupInfoPage{
             Mrs: this.page.getByRole('radio', { name: 'Mrs.' })
         };
         this.nameField = this.page.getByRole('textbox', { name: 'Name *', exact: true });
-        this.emailField = this.page.getByRole('textbox', { name: 'Email *', exact: true });
         this.passwordField = this.page.getByRole('textbox', { name: 'Password'});
         this.dobField = {
             day: this.page.locator('#days'),
@@ -65,9 +64,8 @@ export class SignupInfoPage{
     }
     async fillAccountInfo(): Promise<void>{
         await this.titleRadioBtn.Mr.click();
-        await this.nameField.fill(faker.person.fullName());
-        //await this.emailField.fill(faker.internet.email());
-        await this.passwordField.fill(faker.internet.password());
+        await this.nameField.fill(Data.signupInfo.fullName);
+        await this.passwordField.fill(Data.signupInfo.password);
         await this.dobField.day.selectOption('23');
         await this.dobField.month.selectOption('August');
         await this.dobField.year.selectOption('1995');
@@ -75,16 +73,16 @@ export class SignupInfoPage{
         await this.specialOfferCheckbox.check();    
     }
     async fillAddressInfo(): Promise<void>{
-        await this.firstNameField.fill(faker.person.firstName());
-        await this.lastNameField.fill(faker.person.lastName()); 
-        await this.companyField.fill(faker.company.name());
-        await this.firstAddressLine.fill(faker.location.streetAddress());
-        await this.secondAddressLine.fill(faker.location.state());
+        await this.firstNameField.fill(Data.signupInfo.firstName);
+        await this.lastNameField.fill(Data.signupInfo.lastName); 
+        await this.companyField.fill(Data.signupInfo.companyName);
+        await this.firstAddressLine.fill(Data.signupInfo.firstAddress);
+        await this.secondAddressLine.fill(Data.signupInfo.secondAddress);
         await this.countryField.selectOption(['Canada']);
-        await this.stateField.fill(faker.location.state());
-        await this.cityField.fill(faker.location.city());
-        await this.zipCodeField.fill(faker.location.zipCode());
-        await this.mobileNumberField.fill(faker.phone.number());
+        await this.stateField.fill(Data.signupInfo.state);
+        await this.cityField.fill(Data.signupInfo.city);
+        await this.zipCodeField.fill(Data.signupInfo.zipCode);
+        await this.mobileNumberField.fill(Data.signupInfo.mobileNumber);
     }
     async submitSignupForm(): Promise<void> {
         await this.createAccountBtn.click();
