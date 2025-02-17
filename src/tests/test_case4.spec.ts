@@ -1,8 +1,7 @@
-import { test, expect } from '@playwright/test';
+import {test, expect} from '@playwright/test';
 import { HomePage } from '../pages/homepage.page';
 import { SignupAndLoginPage } from '../pages/signupAndLogin.page';
-import { AccountCreateAndDeletePage } from '../pages/accountCreateAndDelete.page';
-test('Login User with correct email and password', async ({page}) => {
+test('Logout User', async ({page}) => {
     const homePage = new HomePage(page);
     await homePage.navigateToHomePage();
     await expect(page).toHaveTitle('Automation Exercise');
@@ -16,8 +15,8 @@ test('Login User with correct email and password', async ({page}) => {
     await signupAndLoginPage.clickOnLogin();
     const loggedInUser = await homePage.getLoggedInUser();
     await expect(loggedInUser).toBeVisible();
-    // await homePage.clickOnDeleteAccount();
-    // const loginInfoPage = new AccountCreateAndDeletePage(page)
-    // const accountDeleteText = await loginInfoPage.getAccountDeleteText();
-    // await expect(accountDeleteText).toHaveText('Account Deleted!');
+    const navigationPanel = await homePage.getNavPanel();
+    const logoutBtn = await navigationPanel.getNavElement('Logout');
+    await logoutBtn.click();
+    await expect(loggedInUser).not.toBeVisible();
 });
