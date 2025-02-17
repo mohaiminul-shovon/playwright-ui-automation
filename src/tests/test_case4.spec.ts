@@ -1,0 +1,22 @@
+import {test, expect} from '@playwright/test';
+import { HomePage } from '../pages/homepage.page';
+import { SignupAndLoginPage } from '../pages/signupAndLogin.page';
+test('Logout User', async ({page}) => {
+    const homePage = new HomePage(page);
+    await homePage.navigateToHomePage();
+    await expect(page).toHaveTitle('Automation Exercise');
+    const navigationPanal = await homePage.getNavPanel();
+    const signupOrLogin = await navigationPanal.getNavElement(' Signup / Login');
+    await signupOrLogin.click();
+    const signupAndLoginPage = new SignupAndLoginPage(page);
+    const loginTextContent = await signupAndLoginPage.getLoginText();
+    await expect(loginTextContent).toHaveText('Login to your account');
+    await signupAndLoginPage.fillLoginInfo(process.env.LOGIN_EMAIL as string, process.env.LOGIN_PASSWORD as string);
+    await signupAndLoginPage.clickOnLogin();
+    const loggedInUser = await homePage.getLoggedInUser();
+    await expect(loggedInUser).toBeVisible();
+    const navigationPanel = await homePage.getNavPanel();
+    const logoutBtn = await navigationPanel.getNavElement('Logout');
+    await logoutBtn.click();
+    await expect(loggedInUser).not.toBeVisible();
+});
