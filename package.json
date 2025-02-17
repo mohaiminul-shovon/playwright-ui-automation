@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "This is a demo project of Google signin autoamtion in playwright using typescript. It shows a excellent way to handle 2FA authentication while creating automation script",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwright test"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
