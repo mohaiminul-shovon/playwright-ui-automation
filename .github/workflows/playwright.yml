@@ -8,6 +8,7 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    environment: test
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -17,6 +18,10 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Export enviornment variables
+      run: |
+        echo "LOGIN_EMAIL=${vars.LOGIN_URL}" >> $GITHUB_ENV
+        echo "LOGIN_PASSWORD=${vars.LOGIN_PASSWORD}" >> $GITHUB_ENV
     - name: Run Playwright tests
       run: npx playwright test
     - uses: actions/upload-artifact@v4
