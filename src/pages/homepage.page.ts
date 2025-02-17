@@ -13,8 +13,8 @@ export class HomePage{
         return new NavigationPanel(this.page);
     }
     async getLoggedInUser(): Promise<Locator>{
-        const navbarComponent = (await this.getNavPanel()).getNavElement("Logged in as");
-        return navbarComponent;
+        const loggedInUser = await this.page.getByText('Logged in as');
+        return loggedInUser;
     }
     async clickOnDeleteAccount(): Promise<void>{
         const navbarComponent = await (await this.getNavPanel()).getNavElement("Delete Account");

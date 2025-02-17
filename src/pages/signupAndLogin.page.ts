@@ -37,9 +37,9 @@ export class SignupAndLoginPage {
         await this.signupBtn.click();
     }
 
-    async fillLoginInfo(): Promise<void> {
-        await this.loginEmailAddressField.fill(faker.internet.email());
-        await this.loginPasswordField.fill(faker.internet.password());
+    async fillLoginInfo(email: string, password: string): Promise<void> {
+        await this.loginEmailAddressField.fill(email);
+        await this.loginPasswordField.fill(password);
 
     }
     async clickOnLogin(): Promise<void> {
