@@ -31,8 +31,8 @@ jobs:
 
       - name: Export environment variables
         run: |
-          echo "LOGIN_URL=${{ vars.LOGIN_EMAIL }}" >> $GITHUB_ENV
-          echo "INVENTORY_URL=${{ vars.LOGIN_PASSWORD }}" >> $GITHUB_ENV
+          echo "LOGIN_EMAIL=${{ vars.LOGIN_EMAIL }}" >> $GITHUB_ENV
+          echo "LOGIN_PASSWORD=${{ vars.LOGIN_PASSWORD }}" >> $GITHUB_ENV
 
       - name: Run Playwright tests
         run: npm run test
