@@ -69,4 +69,8 @@ export class SignupAndLoginPage {
     async getTitle(){
         return (await this.page.title()).toString();
     }
+
+    async getLoginError(): Promise<Locator> {
+        return this.page.getByText('Your email or password is incorrect!');
+    }
 }
