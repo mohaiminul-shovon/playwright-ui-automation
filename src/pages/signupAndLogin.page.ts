@@ -29,9 +29,14 @@ export class SignupAndLoginPage {
     }
 
     // Page actions
-    async fillSignupInfo(): Promise<void> {
+    async fillSignupInfo(username?:string, email?: string): Promise<void> {
+        if(username&&email){
+            await this.signupUsernameField.fill(username);
+            await this.signupEmailField.fill(email);
+        }else{
         await this.signupUsernameField.fill(faker.internet.username());
         await this.signupEmailField.fill(faker.internet.email());
+        }
     }
     async clickOnSignup(): Promise<void> {
         await this.signupBtn.click();
@@ -72,5 +77,8 @@ export class SignupAndLoginPage {
 
     async getLoginError(): Promise<Locator> {
         return this.page.getByText('Your email or password is incorrect!');
+    }
+    async getSignupError(): Promise<Locator> {
+        return this.page.getByText('Email Address already exist!');
     }
 }
