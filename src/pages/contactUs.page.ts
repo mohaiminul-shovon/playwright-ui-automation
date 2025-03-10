@@ -49,4 +49,8 @@ export class ContactUsPage{
         const successMessage = await this.page.locator('#contact-page').getByText('Success! Your details have');
         return successMessage;
     }
+    async clickHomeBtn(){
+        const homeBtn = await this.page.getByRole('link', { name: ' Home' });
+        await homeBtn.click();
+    }
 }

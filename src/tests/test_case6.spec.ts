@@ -13,7 +13,7 @@ test('Contact Us Form', async ({ page }) => {
     const contactUsPage = await new ContactUsPage(page);
     const formHeading = await contactUsPage.formHeading;
     await expect(formHeading).toHaveText('Get In Touch');
-    page.on('dialog', async dialog => {
+    contactUsPage.page.on('dialog', async dialog => {
         console.log(`Dialog message: ${dialog.message()}`);
         await dialog.accept(); // or dialog.dismiss();
       });
@@ -21,5 +21,8 @@ test('Contact Us Form', async ({ page }) => {
     //await contactUsPage.submitContactForm();
     const successMessage = await contactUsPage.getSuccessMessage();
     await expect(successMessage).toHaveText('Success! Your details have been submitted successfully.');
-    
+    await contactUsPage.clickHomeBtn();
+
+    // Verify that we have landed on the homepage
+    await expect(contactUsPage.page).toHaveTitle('Automation Exercise');
 });
